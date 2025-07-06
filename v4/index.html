@@ -1,0 +1,2283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConnectHub - Company Intranet</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+    :root {
+    --primary-color: #2563eb;
+    --secondary-color: #1e40af;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+    --background-color: #f3f4f6;
+    --widget-bg: #ffffff;
+    --text-primary: #111827;
+    --text-secondary: #4b5563;
+    --border-color: #e5e7eb;
+    --hover-bg: #f9fafb;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    line-height: 1.5;
+    min-height: 100vh;
+}
+
+/* Mobile Menu Button */
+.mobile-menu-btn {
+    display: none;
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1000;
+    background: var(--primary-color);
+    border: none;
+    border-radius: 0.375rem;
+    padding: 0.5rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mobile-menu-btn span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: white;
+    transition: transform 0.3s ease;
+}
+
+.mobile-menu-btn.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.mobile-menu-btn.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-btn.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Header Styles */
+.header {
+    background-color: var(--widget-bg);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow-md);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+}
+
+.search-bar {
+    flex: 0 1 400px;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+}
+
+.search-bar button {
+    padding: 0.5rem 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 0.375rem;
+    cursor: pointer;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* Current Time Display */
+.current-time {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+/* Notifications */
+.notifications {
+    position: relative;
+    cursor: pointer;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: var(--danger-color);
+    color: white;
+    border-radius: 50%;
+    padding: 0.25rem;
+    font-size: 0.75rem;
+    min-width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notifications-dropdown {
+    position: absolute;
+    top: 100%;
+    right: -100px;
+    width: 320px;
+    background-color: var(--widget-bg);
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow-md);
+    margin-top: 0.5rem;
+    display: none;
+    z-index: 1000;
+}
+
+.notifications.active .notifications-dropdown {
+    display: block;
+}
+
+.notification-header {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.notification-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.notification-item {
+    padding: 1rem;
+    display: flex;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.2s;
+}
+
+.notification-item:hover {
+    background-color: var(--hover-bg);
+}
+
+.notification-item.unread {
+    background-color: #f0f7ff;
+}
+
+/* User Profile */
+.user-profile {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-info {
+    display: none;
+}
+
+.user-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 280px;
+    background-color: var(--widget-bg);
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow-md);
+    margin-top: 0.5rem;
+    display: none;
+    z-index: 1000;
+}
+
+.user-profile.active .user-menu {
+    display: block;
+}
+
+.user-menu-header {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.menu-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-menu-items {
+    list-style: none;
+    padding: 0.5rem 0;
+}
+
+.user-menu-items li a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.user-menu-items li a:hover {
+    background-color: var(--hover-bg);
+}
+
+.user-menu-items .divider {
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 0.5rem 0;
+}
+
+.logout {
+    color: var(--danger-color) !important;
+}
+
+/* Main Navigation */
+.main-nav {
+    background-color: var(--widget-bg);
+    padding: 0 2rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    overflow-x: auto;
+    padding: 0.5rem 0;
+}
+
+.main-nav a {
+    text-decoration: none;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 0;
+    font-weight: 500;
+    transition: color 0.2s;
+    white-space: nowrap;
+}
+
+.main-nav li.active a {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+/* Content Wrapper */
+.content-wrapper {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Tab Content */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Widgets */
+.widget {
+    background-color: var(--widget-bg);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+}
+
+/* Welcome Widget */
+.welcome-widget {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    grid-column: 1 / -1;
+}
+
+/* Stats Widget */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+}
+
+.stat-card {
+    background-color: var(--hover-bg);
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+}
+
+/* Calendar Widget */
+.events-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.event {
+    background-color: var(--hover-bg);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    display: flex;
+    gap: 1rem;
+}
+
+/* Quick Actions */
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+}
+
+.action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background-color: var(--hover-bg);
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.action-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Footer */
+.footer {
+    background-color: var(--widget-bg);
+    padding: 3rem 2rem 1.5rem;
+    margin-top: 2rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Mobile Responsive Design */
+@media (max-width: 768px) {
+    .mobile-menu-btn {
+        display: flex;
+    }
+
+    .header {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+        height: 200px;
+    }
+
+    .header-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .search-bar {
+        width: 100%;
+    }
+
+    .user-info {
+        display: none;
+    }
+
+    .main-nav {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        height: 100vh;
+        background-color: var(--widget-bg);
+        padding: 1rem;
+        transition: left 0.3s ease;
+        z-index: 999;
+    }
+
+    .main-nav.show {
+        left: 0;
+    }
+
+    .main-nav ul {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .main-nav a {
+        padding: 1rem;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .notifications-dropdown,
+    .user-menu {
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        border-radius: 1rem 1rem 0 0;
+        margin: 0;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #111827;
+        --widget-bg: #1f2937;
+        --text-primary: #f9fafb;
+        --text-secondary: #d1d5db;
+        --border-color: #374151;
+        --hover-bg: #2d3748;
+    }
+}
+
+/* Navigation Overlay */
+.nav-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+}
+
+.nav-overlay.show {
+    display: block;
+}
+
+/* Tooltip */
+.tooltip {
+    position: fixed;
+    background-color: var(--text-primary);
+    color: var(--widget-bg);
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    pointer-events: none;
+    z-index: 1000;
+    box-shadow: var(--shadow-md);
+}
+
+/* Animation Classes */
+.fade-in {
+    animation: fadeIn 0.3s ease-in;
+}
+
+.fade-out {
+    animation: fadeOut 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.clicked {
+    transform: scale(0.95);
+}
+
+/* Project Card Styles */
+.project-card {
+    background-color: var(--widget-bg);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hover effect */
+.project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Project Header */
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.project-header h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+/* Project Status Badge */
+.project-status {
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.project-status.in-progress {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: var(--warning-color);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+/* Project Description */
+.project-card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 1rem 0;
+}
+
+/* Progress Bar Container */
+.project-progress {
+    margin: 1.5rem 0;
+    position: relative;
+}
+
+/* Progress Bar Background */
+.project-progress::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 1rem;
+}
+
+/* Progress Bar */
+.progress-bar {
+    height: 8px;
+    background: linear-gradient(to right, var(--primary-color), #4f46e5);
+    border-radius: 1rem;
+    position: relative;
+    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Progress Percentage */
+.project-progress span {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-top: 0.75rem;
+    font-weight: 500;
+}
+
+/* Project Meta Information */
+.project-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Team Members Section */
+.project-team {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.project-team img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--widget-bg);
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+}
+
+.project-team img:hover {
+    transform: scale(1.1);
+}
+
+.project-team span {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Deadline Section */
+.project-deadline {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.project-deadline i {
+    color: var(--primary-color);
+}
+
+/* Hover Animation for Progress Bar */
+.project-card:hover .progress-bar {
+    background: linear-gradient(45deg, 
+        var(--primary-color), 
+        #4f46e5, 
+        var(--primary-color)
+    );
+    background-size: 200% auto;
+    animation: shimmer 2s linear infinite;
+}
+
+/* Shimmer Animation */
+@keyframes shimmer {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .project-card {
+        background-color: var(--widget-bg);
+        border-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .project-progress::before {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .project-meta {
+        border-top-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .project-team img {
+        border-color: var(--widget-bg);
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.05);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .project-card {
+        padding: 1.25rem;
+    }
+
+    .project-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .project-status {
+        padding: 0.35rem 0.75rem;
+        font-size: 0.75rem;
+    }
+
+    .project-meta {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+}
+
+/* Calendar Section Styles */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem;
+}
+
+.calendar-widget.full-width {
+    grid-column: 1 / -1;
+}
+
+.calendar-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.calendar-nav {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+    border-radius: 0.375rem;
+    transition: all 0.2s;
+}
+
+.calendar-nav:hover {
+    background-color: var(--hover-bg);
+    color: var(--primary-color);
+}
+
+.current-month {
+    font-size: 1.1rem;
+    font-weight: 600;
+    min-width: 120px;
+    text-align: center;
+}
+
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin: 1rem 0;
+}
+
+.calendar-dates {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+}
+
+.calendar-date {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+}
+
+.calendar-date:hover {
+    background-color: var(--hover-bg);
+}
+
+.calendar-date.today {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.calendar-date.has-event::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    width: 4px;
+    height: 4px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+}
+
+/* Documents Section Styles */
+.documents-grid {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem;
+}
+
+.category-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.category-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.category-item:hover {
+    background-color: var(--hover-bg);
+}
+
+.category-item.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.category-item i {
+    font-size: 1.25rem;
+}
+
+.count {
+    margin-left: auto;
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 0.25rem 0.5rem;
+    border-radius: 1rem;
+    font-size: 0.875rem;
+}
+
+.documents-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.document-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    transition: all 0.2s;
+}
+
+.document-card:hover {
+    transform: translateY(-2px);
+}
+
+.document-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--hover-bg);
+    border-radius: 0.5rem;
+    font-size: 1.25rem;
+}
+
+.document-info {
+    flex: 1;
+}
+
+.document-info h4 {
+    margin-bottom: 0.25rem;
+}
+
+.document-info p {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.document-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.document-actions button {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+    border-radius: 0.375rem;
+    transition: all 0.2s;
+}
+
+.document-actions button:hover {
+    background-color: var(--hover-bg);
+    color: var(--primary-color);
+}
+
+/* Upcoming Events Styles */
+.events-widget {
+    background: var(--widget-bg);
+    border-radius: 1rem;
+    padding: 0;
+    overflow: hidden;
+}
+
+.widget-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.widget-header h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.add-event-btn {
+    padding: 0.5rem 1rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.add-event-btn:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-1px);
+}
+
+.events-timeline {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-height: 480px;
+    overflow-y: auto;
+    position: relative;
+}
+
+/* Custom Scrollbar */
+.events-timeline::-webkit-scrollbar {
+    width: 6px;
+}
+
+.events-timeline::-webkit-scrollbar-track {
+    background: var(--background-color);
+    border-radius: 3px;
+}
+
+.events-timeline::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 3px;
+}
+
+/* Timeline Line */
+.events-timeline::before {
+    content: '';
+    position: absolute;
+    left: 4.5rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(
+        to bottom,
+        var(--border-color) 0%,
+        var(--border-color) 100%
+    );
+    opacity: 0.5;
+}
+
+.event-item {
+    display: flex;
+    gap: 2rem;
+    padding: 0.5rem 0.5rem 0.5rem 0;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.event-item:hover {
+    transform: translateX(4px);
+}
+
+/* Time Column */
+.event-time {
+    min-width: 80px;
+    text-align: right;
+    padding-right: 2rem;
+    position: relative;
+}
+
+.event-time::after {
+    content: '';
+    position: absolute;
+    right: -1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    border: 3px solid var(--widget-bg);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    z-index: 1;
+}
+
+.event-time .time {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: block;
+}
+
+.event-time .date {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    display: block;
+    margin-top: 0.25rem;
+}
+
+/* Event Content */
+.event-content {
+    flex: 1;
+    background: var(--background-color);
+    padding: 1rem;
+    border-radius: 0.75rem;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.event-content:hover {
+    background: linear-gradient(45deg, var(--background-color), var(--hover-bg));
+    transform: translateY(-2px);
+}
+
+.event-content h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.event-content p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+}
+
+/* Event Participants */
+.event-participants {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-top: 0.75rem;
+}
+
+.event-participants img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid var(--widget-bg);
+    transition: transform 0.2s ease;
+}
+
+.event-participants img:hover {
+    transform: scale(1.1);
+    z-index: 2;
+}
+
+.event-participants img:not(:first-child) {
+    margin-left: -0.75rem;
+}
+
+.event-participants span {
+    background-color: var(--primary-color);
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-left: -0.75rem;
+    border: 2px solid var(--widget-bg);
+}
+
+/* Status Indicators */
+.event-content::before {
+    content: '';
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--success-color);
+}
+
+.event-item.pending .event-content::before {
+    background-color: var(--warning-color);
+}
+
+/* Empty State */
+.events-empty {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-secondary);
+}
+
+.events-empty i {
+    font-size: 2rem;
+    color: var(--border-color);
+    margin-bottom: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .events-timeline::before {
+        left: 3.5rem;
+    }
+
+    .event-time {
+        min-width: 60px;
+        padding-right: 1.5rem;
+    }
+
+    .event-time::after {
+        right: -0.75rem;
+    }
+
+    .event-time .time {
+        font-size: 1rem;
+    }
+
+    .event-content {
+        padding: 0.75rem;
+    }
+
+    .event-participants img {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .event-content {
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .event-content:hover {
+        background: linear-gradient(45deg, 
+            rgba(255, 255, 255, 0.05),
+            rgba(255, 255, 255, 0.08)
+        );
+    }
+
+    .events-timeline::before {
+        background: linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.1) 0%,
+            rgba(255, 255, 255, 0.1) 100%
+        );
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.event-item {
+    animation: fadeIn 0.3s ease forwards;
+}
+
+.event-item:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.event-item:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+/* Resources Section Styles */
+.resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 1.5rem;
+}
+
+.resources-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.resource-card {
+    background-color: var(--widget-bg);
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.resource-card:hover {
+    transform: translateY(-2px);
+}
+
+.resource-card i {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.resource-btn {
+    margin-top: 1rem;
+    padding: 0.5rem 1.5rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.resource-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+.resources-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.resource-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: var(--widget-bg);
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+}
+
+.resource-item:hover {
+    transform: translateX(4px);
+}
+
+.resource-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--hover-bg);
+    border-radius: 0.5rem;
+    font-size: 1.25rem;
+    color: var(--primary-color);
+}
+
+.resource-info {
+    flex: 1;
+}
+
+.resource-action {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+    border-radius: 0.375rem;
+    transition: all 0.2s;
+}
+
+.resource-action:hover {
+    background-color: var(--hover-bg);
+    color: var(--primary-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .calendar-grid,
+    .documents-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .resources-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .category-list {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 1rem;
+    }
+
+    .category-item {
+        white-space: nowrap;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Header Section -->
+    <header class="header">
+        <div class="logo-section">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/3000/svg">
+    <rect width="40" height="40" rx="8" fill="#2563EB"/>
+    <path d="M20 10C14.477 10 10 14.477 10 20C10 25.523 14.477 30 20 30C25.523 30 30 25.523 30 20C30 14.477 25.523 10 20 10ZM24.5 21.5H21.5V24.5C21.5 25.052 21.052 25.5 20.5 25.5H19.5C18.948 25.5 18.5 25.052 18.5 24.5V21.5H15.5C14.948 21.5 14.5 21.052 14.5 20.5V19.5C14.5 18.948 14.948 18.5 15.5 18.5H18.5V15.5C18.5 14.948 18.948 14.5 19.5 14.5H20.5C21.052 14.5 21.5 14.948 21.5 15.5V18.5H24.5C25.052 18.5 25.5 18.948 25.5 19.5V20.5C25.5 21.052 25.052 21.5 24.5 21.5Z" fill="white"/>
+</svg>
+            <h1>ConnectHub</h1>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+            <button><i class="fas fa-search"></i></button>
+        </div>
+        <div class="header-right">
+            <div class="current-time">
+                <i class="far fa-clock"></i>
+                <span id="current-datetime">2025-07-06 06:40:41</span>
+            </div>
+            <div class="notifications">
+                <i class="far fa-bell"></i>
+                <span class="notification-badge">3</span>
+                <div class="notifications-dropdown">
+                    <div class="notification-header">
+                        <h3>Notifications</h3>
+                        <a href="#" class="mark-all-read">Mark all as read</a>
+                    </div>
+                    <div class="notification-list">
+                        <div class="notification-item unread">
+                            <img src="https://picsum.photos/32/32?random=1" alt="Notification">
+                            <div class="notification-content">
+                                <p>New project assignment: Frontend Challenge</p>
+                                <span class="notification-time">5 minutes ago</span>
+                            </div>
+                        </div>
+                        <div class="notification-item">
+                            <img src="https://picsum.photos/32/32?random=2" alt="Notification">
+                            <div class="notification-content">
+                                <p>Meeting reminder: Team Standup</p>
+                                <span class="notification-time">1 hour ago</span>
+                            </div>
+                        </div>
+                        <div class="notification-item">
+                            <img src="https://picsum.photos/32/32?random=3" alt="Notification">
+                            <div class="notification-content">
+                                <p>Document shared: Q3 Reports</p>
+                                <span class="notification-time">2 hours ago</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="view-all-notifications">View all notifications</a>
+                </div>
+            </div>
+            <div class="user-profile">
+                <img src="https://picsum.photos/40/40?random=4" alt="Profile" class="avatar">
+                <div class="user-info">
+                    <span class="username">@imabutahersiddik</span>
+                    <span class="role">Frontend Developer</span>
+                </div>
+                <i class="fas fa-chevron-down"></i>
+                <div class="user-menu">
+                    <div class="user-menu-header">
+                        <img src="https://picsum.photos/64/64?random=4" alt="Profile" class="menu-avatar">
+                        <div>
+                            <h4>Abu Taher Siddik</h4>
+                            <span>Frontend Developer</span>
+                        </div>
+                    </div>
+                    <ul class="user-menu-items">
+                        <li><a href="#"><i class="fas fa-user"></i> My Profile</a></li>
+                        <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                        <li><a href="#"><i class="fas fa-question-circle"></i> Help Center</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#" class="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Navigation -->
+    <nav class="main-nav">
+        <ul>
+            <li class="active"><a href="#dashboard"><i class="fas fa-home"></i> Dashboard</a></li>
+            <li><a href="#team"><i class="fas fa-users"></i> Team</a></li>
+            <li><a href="#projects"><i class="fas fa-project-diagram"></i> Projects</a></li>
+            <li><a href="#calendar"><i class="fas fa-calendar"></i> Calendar</a></li>
+            <li><a href="#documents"><i class="fas fa-folder"></i> Documents</a></li>
+            <li><a href="#resources"><i class="fas fa-box"></i> Resources</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="content-wrapper">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="tab-content active">
+            <div class="dashboard-grid">
+                <!-- Welcome Widget -->
+                <div class="widget welcome-widget">
+                    <div class="welcome-content">
+                        <h2>Welcome Back, Abu Taher!</h2>
+                        <p class="date-info">Today is Monday, July 6, 2025</p>
+                        <div class="weather-info">
+                            <i class="fas fa-sun"></i>
+                            <span>28°C, Sunny</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="widget stats-widget">
+                    <h3>Quick Stats</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <i class="fas fa-users"></i>
+                            <span class="stat-number">24</span>
+                            <span class="stat-label">Team Members</span>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-tasks"></i>
+                            <span class="stat-number">12</span>
+                            <span class="stat-label">Active Projects</span>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-calendar-check"></i>
+                            <span class="stat-number">8</span>
+                            <span class="stat-label">Events Today</span>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-chart-line"></i>
+                            <span class="stat-number">95</span>
+                            <span class="stat-label">Tasks Completed</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Calendar -->
+                <div class="widget calendar-widget">
+                    <h3>Upcoming Events</h3>
+                    <div class="events-list">
+                        <div class="event">
+                            <div class="event-time">09:30 AM</div>
+                            <div class="event-details">
+                                <h4>Daily Standup</h4>
+                                <p>Team sync meeting - Main Conference Room</p>
+                                <div class="event-participants">
+                                    <img src="https://picsum.photos/24/24?random=5" alt="Participant">
+                                    <img src="https://picsum.photos/24/24?random=6" alt="Participant">
+                                    <span class="more-participants">+6</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="event">
+                            <div class="event-time">02:00 PM</div>
+                            <div class="event-details">
+                                <h4>Project Review</h4>
+                                <p>Q3 Project Milestones - Virtual Meeting</p>
+                                <div class="event-participants">
+                                    <img src="https://picsum.photos/24/24?random=7" alt="Participant">
+                                    <img src="https://picsum.photos/24/24?random=8" alt="Participant">
+                                    <span class="more-participants">+4</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="view-all">View Full Calendar</a>
+                </div>
+                
+                <!-- Team Spotlight -->
+        <section class="widget team-spotlight">
+            <h2>Team Spotlight</h2>
+            <div class="spotlight-content">
+                <img src="https://github.com/imabutahersiddik.png" alt="Team Member" class="spotlight-image">
+                <div class="spotlight-info">
+                    <h3>Employee of the Month</h3>
+                    <p class="member-name">Abu Taher Siddik</p>
+                    <p class="member-role">Frontend Developer</p>
+                    <p class="achievement">Outstanding contribution to the Frontend Challenge project</p>
+                </div>
+            </div>
+        </section>
+
+                <!-- Quick Actions -->
+                <div class="widget quick-actions-widget">
+                    <h3>Quick Actions</h3>
+                    <div class="actions-grid">
+                        <button class="action-btn">
+                            <i class="fas fa-plus"></i>
+                            New Task
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-calendar-plus"></i>
+                            Schedule Meeting
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-file-upload"></i>
+                            Upload Document
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-comment-dots"></i>
+                            Send Message
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="widget activity-widget">
+                    <h3>Recent Activity</h3>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon"><i class="fas fa-file-alt"></i></div>
+                            <div class="activity-details">
+                                <p><strong>Sarah Chen</strong> uploaded new document</p>
+                                <span class="activity-time">10 minutes ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon"><i class="fas fa-tasks"></i></div>
+                            <div class="activity-details">
+                                <p><strong>You</strong> completed task "Update Homepage Design"</p>
+                                <span class="activity-time">1 hour ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon"><i class="fas fa-comment"></i></div>
+                            <div class="activity-details">
+                                <p><strong>John Smith</strong> commented on Project X</p>
+                                <span class="activity-time">2 hours ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Announcements -->
+                <div class="widget announcements-widget">
+                    <h3>Announcements</h3>
+                    <div class="announcements-list">
+                        <div class="announcement">
+                            <span class="announcement-badge">New</span>
+                            <h4>Company All-Hands Meeting</h4>
+                            <p>Join us for our monthly all-hands meeting this Friday at 3 PM UTC.</p>
+                            <span class="announcement-date">Posted 2 hours ago</span>
+                        </div>
+                        <div class="announcement">
+                            <h4>New Project Launch</h4>
+                            <p>Exciting news! Project Aurora will be launching next week.</p>
+                            <span class="announcement-date">Posted yesterday</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section id="team" class="tab-content">
+            <div class="team-grid">
+                <!-- Team Members -->
+        <section class="widget team-spotlight">
+            <h2>Team Members</h2>
+            <div class="spotlight-content">
+                <img src="https://github.com/imabutahersiddik.png" alt="Team Member" class="spotlight-image">
+                <div class="spotlight-info">
+                    <h3>Employee of the Month</h3>
+                    <p class="member-name">Abu Taher Siddik</p>
+                    <p class="member-role">Frontend Developer</p>
+                    <p class="achievement">Outstanding contribution to the Frontend Challenge project</p>
+                </div>
+            </div>
+        </section>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="tab-content">
+            <div class="projects-grid">
+                <!-- Project Card -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Frontend Challenge</h3>
+                        <span class="project-status in-progress">In Progress</span>
+                    </div>
+                    <p>Developing modern intranet homepage for company communications.</p>
+                    <div class="project-progress">
+                        <div class="progress-bar" style="width: 75%"></div>
+                        <span>75% Complete</span>
+                    </div>
+                    <div class="project-meta">
+                        <div class="project-team">
+                            <img src="https://picsum.photos/24/24?random=10" alt="Team Member">
+                            <span>+3 more</span>
+                        </div>
+                        <div class="project-deadline">
+                            <i class="far fa-clock"></i>
+                            <span>Due July 27, 2025</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- More project cards... -->
+            </div>
+        </section>
+
+<!-- Calendar Section -->
+<section id="calendar" class="tab-content">
+    <div class="calendar-grid">
+        <!-- Calendar Widget -->
+        <div class="widget calendar-widget full-width">
+            <div class="widget-header">
+                <h3>Calendar</h3>
+                <div class="calendar-actions">
+                    <button class="calendar-nav prev"><i class="fas fa-chevron-left"></i></button>
+                    <h4 class="current-month">July 2025</h4>
+                    <button class="calendar-nav next"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+            <div class="calendar-body">
+                <div class="calendar-weekdays">
+                    <span>Sun</span>
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                </div>
+                <div class="calendar-dates">
+                    <!-- Calendar dates will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Upcoming Events -->
+        <div class="widget events-widget">
+    <div class="widget-header">
+        <h3>Upcoming Events</h3>
+        <button class="add-event-btn">
+            <i class="fas fa-plus"></i>
+            Add Event
+        </button>
+    </div>
+    
+    <div class="events-timeline">
+        <div class="event-item">
+            <div class="event-time">
+                <span class="time">07:17</span>
+                <span class="date">Today</span>
+            </div>
+            <div class="event-content">
+                <h4>Team Standup</h4>
+                <p>Daily team sync meeting</p>
+                <div class="event-participants">
+                    <img src="https://picsum.photos/28/28?random=1" alt="Participant">
+                    <img src="https://picsum.photos/28/28?random=2" alt="Participant">
+                    <img src="https://picsum.photos/28/28?random=3" alt="Participant">
+                    <span>+4</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="event-item pending">
+            <div class="event-time">
+                <span class="time">09:30</span>
+                <span class="date">Today</span>
+            </div>
+            <div class="event-content">
+                <h4>Project Review</h4>
+                <p>Q3 Project milestones review</p>
+                <div class="event-participants">
+                    <img src="https://picsum.photos/28/28?random=4" alt="Participant">
+                    <img src="https://picsum.photos/28/28?random=5" alt="Participant">
+                    <span>+2</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="event-item">
+            <div class="event-time">
+                <span class="time">14:00</span>
+                <span class="date">Today</span>
+            </div>
+            <div class="event-content">
+                <h4>Client Meeting</h4>
+                <p>Product demo and feedback session</p>
+                <div class="event-participants">
+                    <img src="https://picsum.photos/28/28?random=6" alt="Participant">
+                    <img src="https://picsum.photos/28/28?random=7" alt="Participant">
+                    <span>+3</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+</section>
+
+<!-- Documents Section -->
+<section id="documents" class="tab-content">
+    <div class="documents-grid">
+        <!-- Document Categories -->
+        <div class="widget document-categories">
+            <div class="category-list">
+                <div class="category-item active">
+                    <i class="fas fa-file-alt"></i>
+                    <span>All Documents</span>
+                    <span class="count">24</span>
+                </div>
+                <div class="category-item">
+                    <i class="fas fa-file-word"></i>
+                    <span>Word Documents</span>
+                    <span class="count">8</span>
+                </div>
+                <div class="category-item">
+                    <i class="fas fa-file-excel"></i>
+                    <span>Spreadsheets</span>
+                    <span class="count">6</span>
+                </div>
+                <div class="category-item">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>PDF Files</span>
+                    <span class="count">10</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Documents -->
+        <div class="documents-container">
+            <div class="widget document-card">
+                <div class="document-icon">
+                    <i class="fas fa-file-pdf"></i>
+                </div>
+                <div class="document-info">
+                    <h4>Q3 Project Proposal.pdf</h4>
+                    <p>Modified: July 5, 2025</p>
+                </div>
+                <div class="document-actions">
+                    <button><i class="fas fa-download"></i></button>
+                    <button><i class="fas fa-share"></i></button>
+                </div>
+            </div>
+
+            <div class="widget document-card">
+                <div class="document-icon">
+                    <i class="fas fa-file-word"></i>
+                </div>
+                <div class="document-info">
+                    <h4>Meeting Minutes.docx</h4>
+                    <p>Modified: July 6, 2025</p>
+                </div>
+                <div class="document-actions">
+                    <button><i class="fas fa-download"></i></button>
+                    <button><i class="fas fa-share"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Resources Section -->
+<section id="resources" class="tab-content">
+    <div class="resources-grid">
+        <!-- Quick Access Resources -->
+        <div class="widget resources-quick-access">
+            <h3>Quick Access</h3>
+            <div class="resources-cards">
+                <div class="resource-card">
+                    <i class="fas fa-book"></i>
+                    <h4>Employee Handbook</h4>
+                    <p>Company policies and guidelines</p>
+                    <button class="resource-btn">Access</button>
+                </div>
+                <div class="resource-card">
+                    <i class="fas fa-laptop-code"></i>
+                    <h4>Development Tools</h4>
+                    <p>Software and tools documentation</p>
+                    <button class="resource-btn">Access</button>
+                </div>
+                <div class="resource-card">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h4>Training Materials</h4>
+                    <p>Learning resources and courses</p>
+                    <button class="resource-btn">Access</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Resources -->
+        <div class="widget resources-recent">
+            <h3>Recently Accessed</h3>
+            <div class="resources-list">
+                <div class="resource-item">
+                    <div class="resource-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <div class="resource-info">
+                        <h4>Onboarding Video</h4>
+                        <p>Last accessed: 2 hours ago</p>
+                    </div>
+                    <button class="resource-action"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="resource-item">
+                    <div class="resource-icon">
+                        <i class="fas fa-file-code"></i>
+                    </div>
+                    <div class="resource-info">
+                        <h4>API Documentation</h4>
+                        <p>Last accessed: Yesterday</p>
+                    </div>
+                    <button class="resource-action"><i class="fas fa-external-link-alt"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    </div>
+
+    <!-- Modern Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">IT Support</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Use</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Employee Handbook</a></li>
+                    <li><a href="#">Benefits Portal</a></li>
+                    <li><a href="#">Training Materials</a></li>
+                    <li><a href="#">Brand Guidelines</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <ul>
+                    <li><i class="fas fa-envelope"></i> support@connecthub.com</li>
+                    <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Tech Street, Silicon Valley</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 ConnectHub. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    // Update current date and time in UTC
+    function updateDateTime() {
+        const now = new Date();
+        const formattedDateTime = now.getUTCFullYear() + '-' + 
+            String(now.getUTCMonth() + 1).padStart(2, '0') + '-' +
+            String(now.getUTCDate()).padStart(2, '0') + ' ' +
+            String(now.getUTCHours()).padStart(2, '0') + ':' +
+            String(now.getUTCMinutes()).padStart(2, '0') + ':' +
+            String(now.getUTCSeconds()).padStart(2, '0');
+        
+        document.getElementById('current-datetime').textContent = formattedDateTime;
+    }
+
+    // Update time every second
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const mainNav = document.querySelector('.main-nav');
+    const overlay = document.createElement('div');
+    overlay.classList.add('nav-overlay');
+    document.body.appendChild(overlay);
+
+    function toggleMobileMenu() {
+        mobileMenuBtn.classList.toggle('active');
+        mainNav.classList.toggle('show');
+        document.body.classList.toggle('menu-open');
+        overlay.classList.toggle('show');
+    }
+
+    mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+    overlay.addEventListener('click', toggleMobileMenu);
+
+    // Notifications Dropdown
+    const notifications = document.querySelector('.notifications');
+    const notificationsDropdown = document.querySelector('.notifications-dropdown');
+
+    notifications.addEventListener('click', function(e) {
+        e.stopPropagation();
+        
+        // Close user menu if open
+        userProfile.classList.remove('active');
+        userMenu.classList.remove('show');
+        
+        notifications.classList.toggle('active');
+        notificationsDropdown.classList.toggle('show');
+    });
+
+    // User Profile Dropdown
+    const userProfile = document.querySelector('.user-profile');
+    const userMenu = document.querySelector('.user-menu');
+
+    userProfile.addEventListener('click', function(e) {
+        e.stopPropagation();
+        
+        // Close notifications if open
+        notifications.classList.remove('active');
+        notificationsDropdown.classList.remove('show');
+        
+        userProfile.classList.toggle('active');
+        userMenu.classList.toggle('show');
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!notifications.contains(e.target)) {
+            notifications.classList.remove('active');
+            notificationsDropdown.classList.remove('show');
+        }
+        if (!userProfile.contains(e.target)) {
+            userProfile.classList.remove('active');
+            userMenu.classList.remove('show');
+        }
+    });
+
+    // Tab Navigation
+    const tabLinks = document.querySelectorAll('.main-nav a');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href').substring(1);
+            
+            // Update active tab
+            tabLinks.forEach(l => l.parentElement.classList.remove('active'));
+            link.parentElement.classList.add('active');
+            
+            // Show target content with fade effect
+            tabContents.forEach(content => {
+                content.style.opacity = '0';
+                content.classList.remove('active');
+                
+                if (content.id === targetId) {
+                    content.classList.add('active');
+                    setTimeout(() => {
+                        content.style.opacity = '1';
+                    }, 50);
+                }
+            });
+
+            // Close mobile menu if open
+            if (mainNav.classList.contains('show')) {
+                toggleMobileMenu();
+            }
+        });
+    });
+
+    // Stats Animation
+    const stats = document.querySelectorAll('.stat-number');
+    const observerOptions = {
+        threshold: 0.5,
+        rootMargin: '0px'
+    };
+
+    const statsObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const stat = entry.target;
+                const finalValue = parseInt(stat.textContent);
+                animateValue(stat, 0, finalValue, 1500);
+                observer.unobserve(stat);
+            }
+        });
+    }, observerOptions);
+
+    stats.forEach(stat => statsObserver.observe(stat));
+
+    function animateValue(element, start, end, duration) {
+        let current = start;
+        const range = end - start;
+        const increment = end > start ? 1 : -1;
+        const stepTime = Math.abs(Math.floor(duration / range));
+        
+        const timer = setInterval(() => {
+            current += increment;
+            element.textContent = current;
+            if (current === end) {
+                clearInterval(timer);
+            }
+        }, stepTime);
+    }
+
+    // Progress Bars Animation
+    const progressBars = document.querySelectorAll('.progress-bar');
+    const progressObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const bar = entry.target;
+                const width = bar.style.width;
+                bar.style.width = '0';
+                setTimeout(() => {
+                    bar.style.transition = 'width 1s ease-in-out';
+                    bar.style.width = width;
+                }, 100);
+                observer.unobserve(bar);
+            }
+        });
+    }, observerOptions);
+
+    progressBars.forEach(bar => progressObserver.observe(bar));
+
+    // Quick Actions Animation
+    const actionButtons = document.querySelectorAll('.action-btn');
+    actionButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            this.classList.add('clicked');
+            setTimeout(() => {
+                this.classList.remove('clicked');
+            }, 200);
+        });
+    });
+
+    // Notification Mark as Read
+    const markAllRead = document.querySelector('.mark-all-read');
+    if (markAllRead) {
+        markAllRead.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelectorAll('.notification-item.unread')
+                .forEach(item => item.classList.remove('unread'));
+            
+            const badge = document.querySelector('.notification-badge');
+            badge.style.display = 'none';
+        });
+    }
+
+    // Search Functionality
+    const searchInputs = document.querySelectorAll('input[type="text"]');
+    searchInputs.forEach(input => {
+        input.addEventListener('input', debounce(function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            // Implement search logic here
+            console.log('Searching for:', searchTerm);
+        }, 300));
+    });
+
+    // Debounce Function
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
+    // Add smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // Handle window resize
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function() {
+            if (window.innerWidth > 768) {
+                mainNav.classList.remove('show');
+                mobileMenuBtn.classList.remove('active');
+                overlay.classList.remove('show');
+                document.body.classList.remove('menu-open');
+            }
+        }, 250);
+    });
+
+    // Initialize tooltips
+    const tooltipElements = document.querySelectorAll('[data-tooltip]');
+    tooltipElements.forEach(element => {
+        element.addEventListener('mouseenter', showTooltip);
+        element.addEventListener('mouseleave', hideTooltip);
+    });
+
+    function showTooltip(e) {
+        const tooltip = document.createElement('div');
+        tooltip.classList.add('tooltip');
+        tooltip.textContent = e.target.dataset.tooltip;
+        document.body.appendChild(tooltip);
+        
+        const rect = e.target.getBoundingClientRect();
+        tooltip.style.top = rect.top - tooltip.offsetHeight - 10 + 'px';
+        tooltip.style.left = rect.left + (rect.width - tooltip.offsetWidth) / 2 + 'px';
+    }
+
+    function hideTooltip() {
+        const tooltip = document.querySelector('.tooltip');
+        if (tooltip) {
+            tooltip.remove();
+        }
+    }
+});
+
+// Calendar functionality
+function initializeCalendar() {
+    const today = new Date();
+    const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+    const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1).getDay();
+    
+    const calendarDates = document.querySelector('.calendar-dates');
+    calendarDates.innerHTML = '';
+
+    // Add empty spaces for days before the first day of the month
+    for (let i = 0; i < firstDayOfMonth; i++) {
+        const emptyDate = document.createElement('div');
+        emptyDate.className = 'calendar-date empty';
+        calendarDates.appendChild(emptyDate);
+    }
+
+    // Add dates
+    for (let i = 1; i <= daysInMonth; i++) {
+        const dateElement = document.createElement('div');
+        dateElement.className = 'calendar-date';
+        dateElement.textContent = i;
+
+        if (i === today.getDate()) {
+            dateElement.classList.add('today');
+        }
+
+        // Example: Add event indicator for some dates
+        if ([5, 10, 15, 20].includes(i)) {
+            dateElement.classList.add('has-event');
+        }
+
+        calendarDates.appendChild(dateElement);
+    }
+}
+
+// Initialize calendar when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    initializeCalendar();
+
+    // Handle calendar navigation
+    const prevBtn = document.querySelector('.calendar-nav.prev');
+    const nextBtn = document.querySelector('.calendar-nav.next');
+
+    if (prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', () => {
+            // Handle previous month
+            console.log('Previous month');
+        });
+
+        nextBtn.addEventListener('click', () => {
+            // Handle next month
+            console.log('Next month');
+        });
+    }
+});
+    </script>
+</body>
+</html>

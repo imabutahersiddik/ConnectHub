@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConnectHub - Company Intranet</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Header Section -->
+    <header class="header">
+        <div class="logo-section">
+            <img src="assets/logo.svg" alt="ConnectHub Logo" class="logo">
+            <h1>ConnectHub</h1>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+            <button><i class="fas fa-search"></i></button>
+        </div>
+        <div class="header-right">
+            <div class="current-time">
+                <i class="far fa-clock"></i>
+                <span id="current-datetime">2025-07-06 06:40:41</span>
+            </div>
+            <div class="notifications">
+                <i class="far fa-bell"></i>
+                <span class="notification-badge">3</span>
+                <div class="notifications-dropdown">
+                    <div class="notification-header">
+                        <h3>Notifications</h3>
+                        <a href="#" class="mark-all-read">Mark all as read</a>
+                    </div>
+                    <div class="notification-list">
+                        <div class="notification-item unread">
+                            <img src="https://picsum.photos/32/32?random=1" alt="Notification">
+                            <div class="notification-content">
+                                <p>New project assignment: Frontend Challenge</p>
+                                <span class="notification-time">5 minutes ago</span>
+                            </div>
+                        </div>
+                        <div class="notification-item">
+                            <img src="https://picsum.photos/32/32?random=2" alt="Notification">
+                            <div class="notification-content">
+                                <p>Meeting reminder: Team Standup</p>
+                                <span class="notification-time">1 hour ago</span>
+                            </div>
+                        </div>
+                        <div class="notification-item">
+                            <img src="https://picsum.photos/32/32?random=3" alt="Notification">
+                            <div class="notification-content">
+                                <p>Document shared: Q3 Reports</p>
+                                <span class="notification-time">2 hours ago</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="view-all-notifications">View all notifications</a>
+                </div>
+            </div>
+            <div class="user-profile">
+                <img src="https://picsum.photos/40/40?random=4" alt="Profile" class="avatar">
+                <div class="user-info">
+                    <span class="username">@imabutahersiddik</span>
+                    <span class="role">Frontend Developer</span>
+                </div>
+                <i class="fas fa-chevron-down"></i>
+                <div class="user-menu">
+                    <div class="user-menu-header">
+                        <img src="https://picsum.photos/64/64?random=4" alt="Profile" class="menu-avatar">
+                        <div>
+                            <h4>Abu Taher Siddik</h4>
+                            <span>Frontend Developer</span>
+                        </div>
+                    </div>
+                    <ul class="user-menu-items">
+                        <li><a href="#"><i class="fas fa-user"></i> My Profile</a></li>
+                        <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                        <li><a href="#"><i class="fas fa-question-circle"></i> Help Center</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#" class="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Navigation -->
+    <nav class="main-nav">
+        <ul>
+            <li class="active"><a href="#dashboard"><i class="fas fa-home"></i> Dashboard</a></li>
+            <li><a href="#team"><i class="fas fa-users"></i> Team</a></li>
+            <li><a href="#projects"><i class="fas fa-project-diagram"></i> Projects</a></li>
+            <li><a href="#calendar"><i class="fas fa-calendar"></i> Calendar</a></li>
+            <li><a href="#documents"><i class="fas fa-folder"></i> Documents</a></li>
+            <li><a href="#resources"><i class="fas fa-box"></i> Resources</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="content-wrapper">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="tab-content active">
+            <div class="dashboard-grid">
+                <!-- Welcome Widget -->
+                <div class="widget welcome-widget">
+                    <div class="welcome-content">
+                        <h2>Welcome Back, Abu Taher!</h2>
+                        <p class="date-info">Today is Monday, July 6, 2025</p>
+                        <div class="weather-info">
+                            <i class="fas fa-sun"></i>
+                            <span>28°C, Sunny</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="widget stats-widget">
+                    <h3>Quick Stats</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <i class="fas fa-users"></i>
+                            <span class="stat-number">24</span>
+                            <span class="stat-label">Team Members</span>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-tasks"></i>
+                            <span class="stat-number">12</span>
+                            <span class="stat-label">Active Projects</span>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-calendar-check"></i>
+                            <span class="stat-number">8</span>
+                            <span class="stat-label">Events Today</span>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-chart-line"></i>
+                            <span class="stat-number">95</span>
+                            <span class="stat-label">Tasks Completed</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Calendar -->
+                <div class="widget calendar-widget">
+                    <h3>Upcoming Events</h3>
+                    <div class="events-list">
+                        <div class="event">
+                            <div class="event-time">09:30 AM</div>
+                            <div class="event-details">
+                                <h4>Daily Standup</h4>
+                                <p>Team sync meeting - Main Conference Room</p>
+                                <div class="event-participants">
+                                    <img src="https://picsum.photos/24/24?random=5" alt="Participant">
+                                    <img src="https://picsum.photos/24/24?random=6" alt="Participant">
+                                    <span class="more-participants">+6</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="event">
+                            <div class="event-time">02:00 PM</div>
+                            <div class="event-details">
+                                <h4>Project Review</h4>
+                                <p>Q3 Project Milestones - Virtual Meeting</p>
+                                <div class="event-participants">
+                                    <img src="https://picsum.photos/24/24?random=7" alt="Participant">
+                                    <img src="https://picsum.photos/24/24?random=8" alt="Participant">
+                                    <span class="more-participants">+4</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="view-all">View Full Calendar</a>
+                </div>
+                
+                <!-- Team Spotlight -->
+        <section class="widget team-spotlight">
+            <h2>Team Spotlight</h2>
+            <div class="spotlight-content">
+                <img src="https://github.com/imabutahersiddik.png" alt="Team Member" class="spotlight-image">
+                <div class="spotlight-info">
+                    <h3>Employee of the Month</h3>
+                    <p class="member-name">Abu Taher Siddik</p>
+                    <p class="member-role">Frontend Developer</p>
+                    <p class="achievement">Outstanding contribution to the Frontend Challenge project</p>
+                </div>
+            </div>
+        </section>
+
+                <!-- Quick Actions -->
+                <div class="widget quick-actions-widget">
+                    <h3>Quick Actions</h3>
+                    <div class="actions-grid">
+                        <button class="action-btn">
+                            <i class="fas fa-plus"></i>
+                            New Task
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-calendar-plus"></i>
+                            Schedule Meeting
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-file-upload"></i>
+                            Upload Document
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-comment-dots"></i>
+                            Send Message
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="widget activity-widget">
+                    <h3>Recent Activity</h3>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon"><i class="fas fa-file-alt"></i></div>
+                            <div class="activity-details">
+                                <p><strong>Sarah Chen</strong> uploaded new document</p>
+                                <span class="activity-time">10 minutes ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon"><i class="fas fa-tasks"></i></div>
+                            <div class="activity-details">
+                                <p><strong>You</strong> completed task "Update Homepage Design"</p>
+                                <span class="activity-time">1 hour ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon"><i class="fas fa-comment"></i></div>
+                            <div class="activity-details">
+                                <p><strong>John Smith</strong> commented on Project X</p>
+                                <span class="activity-time">2 hours ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Announcements -->
+                <div class="widget announcements-widget">
+                    <h3>Announcements</h3>
+                    <div class="announcements-list">
+                        <div class="announcement">
+                            <span class="announcement-badge">New</span>
+                            <h4>Company All-Hands Meeting</h4>
+                            <p>Join us for our monthly all-hands meeting this Friday at 3 PM UTC.</p>
+                            <span class="announcement-date">Posted 2 hours ago</span>
+                        </div>
+                        <div class="announcement">
+                            <h4>New Project Launch</h4>
+                            <p>Exciting news! Project Aurora will be launching next week.</p>
+                            <span class="announcement-date">Posted yesterday</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section id="team" class="tab-content">
+            <div class="team-grid">
+                <!-- Team Members -->
+        <section class="widget team-spotlight">
+            <h2>Team Members</h2>
+            <div class="spotlight-content">
+                <img src="https://github.com/imabutahersiddik.png" alt="Team Member" class="spotlight-image">
+                <div class="spotlight-info">
+                    <h3>Employee of the Month</h3>
+                    <p class="member-name">Abu Taher Siddik</p>
+                    <p class="member-role">Frontend Developer</p>
+                    <p class="achievement">Outstanding contribution to the Frontend Challenge project</p>
+                </div>
+            </div>
+        </section>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="tab-content">
+            <div class="projects-grid">
+                <!-- Project Card -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Frontend Challenge</h3>
+                        <span class="project-status in-progress">In Progress</span>
+                    </div>
+                    <p>Developing modern intranet homepage for company communications.</p>
+                    <div class="project-progress">
+                        <div class="progress-bar" style="width: 75%"></div>
+                        <span>75% Complete</span>
+                    </div>
+                    <div class="project-meta">
+                        <div class="project-team">
+                            <img src="https://picsum.photos/24/24?random=10" alt="Team Member">
+                            <span>+3 more</span>
+                        </div>
+                        <div class="project-deadline">
+                            <i class="far fa-clock"></i>
+                            <span>Due July 27, 2025</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- More project cards... -->
+            </div>
+        </section>
+
+<!-- Calendar Section -->
+<section id="calendar" class="tab-content">
+    <div class="calendar-grid">
+        <!-- Calendar Widget -->
+        <div class="widget calendar-widget full-width">
+            <div class="widget-header">
+                <h3>Calendar</h3>
+                <div class="calendar-actions">
+                    <button class="calendar-nav prev"><i class="fas fa-chevron-left"></i></button>
+                    <h4 class="current-month">July 2025</h4>
+                    <button class="calendar-nav next"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+            <div class="calendar-body">
+                <div class="calendar-weekdays">
+                    <span>Sun</span>
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                </div>
+                <div class="calendar-dates">
+                    <!-- Calendar dates will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Upcoming Events -->
+        <div class="widget events-widget">
+    <div class="widget-header">
+        <h3>Upcoming Events</h3>
+        <button class="add-event-btn">
+            <i class="fas fa-plus"></i>
+            Add Event
+        </button>
+    </div>
+    
+    <div class="events-timeline">
+        <div class="event-item">
+            <div class="event-time">
+                <span class="time">07:17</span>
+                <span class="date">Today</span>
+            </div>
+            <div class="event-content">
+                <h4>Team Standup</h4>
+                <p>Daily team sync meeting</p>
+                <div class="event-participants">
+                    <img src="https://picsum.photos/28/28?random=1" alt="Participant">
+                    <img src="https://picsum.photos/28/28?random=2" alt="Participant">
+                    <img src="https://picsum.photos/28/28?random=3" alt="Participant">
+                    <span>+4</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="event-item pending">
+            <div class="event-time">
+                <span class="time">09:30</span>
+                <span class="date">Today</span>
+            </div>
+            <div class="event-content">
+                <h4>Project Review</h4>
+                <p>Q3 Project milestones review</p>
+                <div class="event-participants">
+                    <img src="https://picsum.photos/28/28?random=4" alt="Participant">
+                    <img src="https://picsum.photos/28/28?random=5" alt="Participant">
+                    <span>+2</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="event-item">
+            <div class="event-time">
+                <span class="time">14:00</span>
+                <span class="date">Today</span>
+            </div>
+            <div class="event-content">
+                <h4>Client Meeting</h4>
+                <p>Product demo and feedback session</p>
+                <div class="event-participants">
+                    <img src="https://picsum.photos/28/28?random=6" alt="Participant">
+                    <img src="https://picsum.photos/28/28?random=7" alt="Participant">
+                    <span>+3</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+</section>
+
+<!-- Documents Section -->
+<section id="documents" class="tab-content">
+    <div class="documents-grid">
+        <!-- Document Categories -->
+        <div class="widget document-categories">
+            <div class="category-list">
+                <div class="category-item active">
+                    <i class="fas fa-file-alt"></i>
+                    <span>All Documents</span>
+                    <span class="count">24</span>
+                </div>
+                <div class="category-item">
+                    <i class="fas fa-file-word"></i>
+                    <span>Word Documents</span>
+                    <span class="count">8</span>
+                </div>
+                <div class="category-item">
+                    <i class="fas fa-file-excel"></i>
+                    <span>Spreadsheets</span>
+                    <span class="count">6</span>
+                </div>
+                <div class="category-item">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>PDF Files</span>
+                    <span class="count">10</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Documents -->
+        <div class="documents-container">
+            <div class="widget document-card">
+                <div class="document-icon">
+                    <i class="fas fa-file-pdf"></i>
+                </div>
+                <div class="document-info">
+                    <h4>Q3 Project Proposal.pdf</h4>
+                    <p>Modified: July 5, 2025</p>
+                </div>
+                <div class="document-actions">
+                    <button><i class="fas fa-download"></i></button>
+                    <button><i class="fas fa-share"></i></button>
+                </div>
+            </div>
+
+            <div class="widget document-card">
+                <div class="document-icon">
+                    <i class="fas fa-file-word"></i>
+                </div>
+                <div class="document-info">
+                    <h4>Meeting Minutes.docx</h4>
+                    <p>Modified: July 6, 2025</p>
+                </div>
+                <div class="document-actions">
+                    <button><i class="fas fa-download"></i></button>
+                    <button><i class="fas fa-share"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Resources Section -->
+<section id="resources" class="tab-content">
+    <div class="resources-grid">
+        <!-- Quick Access Resources -->
+        <div class="widget resources-quick-access">
+            <h3>Quick Access</h3>
+            <div class="resources-cards">
+                <div class="resource-card">
+                    <i class="fas fa-book"></i>
+                    <h4>Employee Handbook</h4>
+                    <p>Company policies and guidelines</p>
+                    <button class="resource-btn">Access</button>
+                </div>
+                <div class="resource-card">
+                    <i class="fas fa-laptop-code"></i>
+                    <h4>Development Tools</h4>
+                    <p>Software and tools documentation</p>
+                    <button class="resource-btn">Access</button>
+                </div>
+                <div class="resource-card">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h4>Training Materials</h4>
+                    <p>Learning resources and courses</p>
+                    <button class="resource-btn">Access</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Resources -->
+        <div class="widget resources-recent">
+            <h3>Recently Accessed</h3>
+            <div class="resources-list">
+                <div class="resource-item">
+                    <div class="resource-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <div class="resource-info">
+                        <h4>Onboarding Video</h4>
+                        <p>Last accessed: 2 hours ago</p>
+                    </div>
+                    <button class="resource-action"><i class="fas fa-play"></i></button>
+                </div>
+                <div class="resource-item">
+                    <div class="resource-icon">
+                        <i class="fas fa-file-code"></i>
+                    </div>
+                    <div class="resource-info">
+                        <h4>API Documentation</h4>
+                        <p>Last accessed: Yesterday</p>
+                    </div>
+                    <button class="resource-action"><i class="fas fa-external-link-alt"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    </div>
+
+    <!-- Modern Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">IT Support</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Use</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Employee Handbook</a></li>
+                    <li><a href="#">Benefits Portal</a></li>
+                    <li><a href="#">Training Materials</a></li>
+                    <li><a href="#">Brand Guidelines</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <ul>
+                    <li><i class="fas fa-envelope"></i> support@connecthub.com</li>
+                    <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Tech Street, Silicon Valley</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 ConnectHub. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

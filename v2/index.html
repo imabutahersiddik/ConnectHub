@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConnectHub - Company Intranet</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+    :root {
+    --primary-color: #2563eb;
+    --secondary-color: #1e40af;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+    --background-color: #f3f4f6;
+    --widget-bg: #ffffff;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --border-color: #e5e7eb;
+}
+
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    line-height: 1.5;
+}
+
+/* Header Styles */
+.header {
+    background-color: var(--widget-bg);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.current-time {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+}
+
+.notifications {
+    position: relative;
+    cursor: pointer;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: var(--danger-color);
+    color: white;
+    border-radius: 50%;
+    padding: 0.25rem;
+    font-size: 0.75rem;
+    min-width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 1.5rem;
+}
+
+/* Widget Styles */
+.widget {
+    background-color: var(--widget-bg);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-widget {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    grid-column: 1 / -1;
+}
+
+.welcome-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.weather-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+/* Stats Widget */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+}
+
+.stat-card {
+    background-color: var(--background-color);
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+}
+
+/* Calendar Widget */
+.events-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.event {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: var(--background-color);
+    border-radius: 0.5rem;
+}
+
+.event-participants {
+    display: flex;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+.event-participants img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid white;
+    margin-left: -8px;
+}
+
+.event-participants img:first-child {
+    margin-left: 0;
+}
+
+.more-participants {
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    margin-left: -8px;
+}
+
+/* Quick Actions */
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+}
+
+.action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background-color: var(--background-color);
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Activity Widget */
+.activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.activity-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: var(--background-color);
+    border-radius: 0.5rem;
+}
+
+.activity-icon {
+    background-color: var(--primary-color);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Team Section */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    padding: 1.5rem;
+}
+
+.team-member-card {
+    background-color: var(--widget-bg);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.team-member-card:hover {
+    transform: translateY(-2px);
+}
+
+.team-member-card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+}
+
+.member-status {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.875rem;
+    margin: 0.5rem 0;
+}
+
+.member-status.online {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.member-actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.member-actions button {
+    background-color: var(--background-color);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.member-actions button:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Projects Section */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 1.5rem;
+}
+
+.project-card {
+    background-color: var(--widget-bg);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.project-status {
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.875rem;
+}
+
+.project-status.in-progress {
+    background-color: var(--warning-color);
+    color: white;
+}
+
+.project-progress {
+    margin: 1rem 0;
+}
+
+.progress-bar {
+    height: 8px;
+    background-color: var(--primary-color);
+    border-radius: 4px;
+}
+
+.project-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+/* Footer Styles */
+.footer {
+    background-color: var(--widget-bg);
+    padding: 3rem 2rem 1.5rem;
+    margin-top: 2rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section h4 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section ul li a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-section ul li a:hover {
+    color: var(--primary-color);
+}
+
+.footer-bottom {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-links a {
+    color: var(--text-secondary);
+    transition: color 0.2s;
+}
+
+.social-links a:hover {
+    color: var(--primary-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .header-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .search-bar {
+        width: 100%;
+    }
+
+    .dashboard-grid,
+    .team-grid,
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+}</style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="logo-section">
+            <img src="assets/logo.svg" alt="ConnectHub Logo" class="logo">
+            <h1>ConnectHub</h1>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+            <button><i class="fas fa-search"></i></button>
+        </div>
+        <div class="header-right">
+            <div class="current-time">
+                <i class="far fa-clock"></i>
+                <span id="current-datetime">2025-07-06 06:29:33 UTC</span>
+            </div>
+            <div class="notifications">
+                <i class="far fa-bell"></i>
+                <span class="notification-badge">3</span>
+            </div>
+            <div class="user-profile">
+                <img src="https://github.com/imabutahersiddik.png" alt="Profile" class="avatar">
+                <div class="user-info">
+                    <span class="username">@imabutahersiddik</span>
+                    <span class="role">Frontend Developer</span>
+                </div>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Navigation -->
+    <nav class="main-nav">
+        <ul>
+            <li class="active"><a href="#dashboard"><i class="fas fa-home"></i> Dashboard</a></li>
+            <li><a href="#team"><i class="fas fa-users"></i> Team</a></li>
+            <li><a href="#projects"><i class="fas fa-project-diagram"></i> Projects</a></li>
+            <li><a href="#calendar"><i class="fas fa-calendar"></i> Calendar</a></li>
+            <li><a href="#documents"><i class="fas fa-folder"></i> Documents</a></li>
+            <li><a href="#resources"><i class="fas fa-box"></i> Resources</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="content-wrapper">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="tab-content active">
+            <div class="dashboard-grid">
+                <!-- Welcome Widget -->
+                <div class="widget welcome-widget">
+                    <div class="welcome-content">
+                        <h2>Welcome Back, Abu Taher!</h2>
+                        <p class="date-info">Today is Monday, July 6, 2025</p>
+                        <div class="weather-info">
+                            <i class="fas fa-sun"></i>
+                            <span>28°C, Sunny</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="widget stats-widget">
+                    <h3>Quick Stats</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <i class="fas fa-users"></i>
+                            <span class="stat-number">24</span>
+                            <span class="stat-label">Team Members</span>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-tasks"></i>
+                            <span class="stat-number">12</span>
+                            <span class="stat-label">Active Projects</span>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-calendar-check"></i>
+                            <span class="stat-number">8</span>
+                            <span class="stat-label">Events Today</span>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-chart-line"></i>
+                            <span class="stat-number">95</span>
+                            <span class="stat-label">Tasks Completed</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Calendar -->
+                <div class="widget calendar-widget">
+                    <h3>Upcoming Events</h3>
+                    <div class="events-list">
+                        <div class="event">
+                            <div class="event-time">09:30 AM</div>
+                            <div class="event-details">
+                                <h4>Daily Standup</h4>
+                                <p>Team sync meeting - Main Conference Room</p>
+                                <div class="event-participants">
+                                    <img src="https://github.com/imabutahersiddik.png" alt="Participant">
+                                    <img src="https://github.com/github.png" alt="Participant">
+                                    <span class="more-participants">+6</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="event">
+                            <div class="event-time">02:00 PM</div>
+                            <div class="event-details">
+                                <h4>Project Review</h4>
+                                <p>Q3 Project Milestones - Virtual Meeting</p>
+                                <div class="event-participants">
+                                    <img src="https://github.com/imabutahersiddik.png" alt="Participant">
+                                    <img src="https://github.com/github.png" alt="Participant">
+                                    <span class="more-participants">+4</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="view-all">View Full Calendar</a>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="widget quick-actions-widget">
+                    <h3>Quick Actions</h3>
+                    <div class="actions-grid">
+                        <button class="action-btn">
+                            <i class="fas fa-plus"></i>
+                            New Task
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-calendar-plus"></i>
+                            Schedule Meeting
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-file-upload"></i>
+                            Upload Document
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-comment-dots"></i>
+                            Send Message
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="widget activity-widget">
+                    <h3>Recent Activity</h3>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon"><i class="fas fa-file-alt"></i></div>
+                            <div class="activity-details">
+                                <p><strong>Sarah Chen</strong> uploaded new document</p>
+                                <span class="activity-time">10 minutes ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon"><i class="fas fa-tasks"></i></div>
+                            <div class="activity-details">
+                                <p><strong>You</strong> completed task "Update Homepage Design"</p>
+                                <span class="activity-time">1 hour ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon"><i class="fas fa-comment"></i></div>
+                            <div class="activity-details">
+                                <p><strong>John Smith</strong> commented on Project X</p>
+                                <span class="activity-time">2 hours ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Announcements -->
+                <div class="widget announcements-widget">
+                    <h3>Announcements</h3>
+                    <div class="announcements-list">
+                        <div class="announcement">
+                            <span class="announcement-badge">New</span>
+                            <h4>Company All-Hands Meeting</h4>
+                            <p>Join us for our monthly all-hands meeting this Friday at 3 PM UTC.</p>
+                            <span class="announcement-date">Posted 2 hours ago</span>
+                        </div>
+                        <div class="announcement">
+                            <h4>New Project Launch</h4>
+                            <p>Exciting news! Project Aurora will be launching next week.</p>
+                            <span class="announcement-date">Posted yesterday</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section id="team" class="tab-content">
+            <div class="team-grid">
+                <div class="widget team-directory">
+                    <h3>Team Directory</h3>
+                    <div class="team-search">
+                        <input type="text" placeholder="Search team members...">
+                    </div>
+                    <div class="team-members">
+                        <!-- Team Member Cards -->
+                        <div class="team-member-card">
+                            <img src="https://github.com/imabutahersiddik.png" alt="Team Member">
+                            <h4>Abu Taher Siddik</h4>
+                            <p>Frontend Developer</p>
+                            <div class="member-status online">Online</div>
+                            <div class="member-actions">
+                                <button><i class="fas fa-envelope"></i></button>
+                                <button><i class="fas fa-video"></i></button>
+                            </div>
+                        </div>
+                        <!-- Add more team member cards -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="tab-content">
+            <div class="projects-grid">
+                <!-- Project Cards -->
+                <div class="widget project-card">
+                    <div class="project-header">
+                        <h3>Frontend Challenge</h3>
+                        <span class="project-status in-progress">In Progress</span>
+                    </div>
+                    <p>Developing modern intranet homepage for company communications.</p>
+                    <div class="project-progress">
+                        <div class="progress-bar" style="width: 75%"></div>
+                        <span>75% Complete</span>
+                    </div>
+                    <div class="project-meta">
+                        <div class="project-team">
+                            <img src="https://github.com/imabutahersiddik.png" alt="Team Member">
+                            <span>+3 more</span>
+                        </div>
+                        <div class="project-deadline">
+                            <i class="far fa-clock"></i>
+                            <span>Due July 27, 2025</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modern Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">IT Support</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Use</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Employee Handbook</a></li>
+                    <li><a href="#">Benefits Portal</a></li>
+                    <li><a href="#">Training Materials</a></li>
+                    <li><a href="#">Brand Guidelines</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <ul>
+                    <li><i class="fas fa-envelope"></i> support@connecthub.com</li>
+                    <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Tech Street, Silicon Valley</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 ConnectHub. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

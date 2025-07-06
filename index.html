@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConnectHub - Company Intranet</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="logo-section">
+            <img src="logo.png" alt="ConnectHub Logo" class="logo">
+            <h1>ConnectHub</h1>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+            <button><i class="fas fa-search"></i></button>
+        </div>
+        <div class="user-profile">
+            <img src="https://github.com/imabutahersiddik.png" alt="Profile" class="avatar">
+            <span class="username">@imabutahersiddik</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </header>
+
+    <!-- Main Navigation -->
+    <nav class="main-nav">
+        <ul>
+            <li class="active"><a href="#"><i class="fas fa-home"></i> Dashboard</a></li>
+            <li><a href="#"><i class="fas fa-calendar"></i> Events</a></li>
+            <li><a href="#"><i class="fas fa-users"></i> Team</a></li>
+            <li><a href="#"><i class="fas fa-folder"></i> Resources</a></li>
+            <li><a href="#"><i class="fas fa-tasks"></i> Tasks</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Dashboard Content -->
+    <main class="dashboard">
+        <!-- Quick Stats -->
+        <section class="widget quick-stats">
+            <h2>Quick Stats</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-users"></i>
+                    <span class="stat-number">24</span>
+                    <span class="stat-label">Team Members Online</span>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-calendar-check"></i>
+                    <span class="stat-number">3</span>
+                    <span class="stat-label">Today's Meetings</span>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-tasks"></i>
+                    <span class="stat-number">12</span>
+                    <span class="stat-label">Pending Tasks</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Calendar -->
+        <section class="widget calendar">
+            <h2>Upcoming Events</h2>
+            <div class="events-list">
+                <div class="event">
+                    <div class="event-time">09:30 AM</div>
+                    <div class="event-details">
+                        <h3>Team Standup</h3>
+                        <p>Daily team sync meeting</p>
+                    </div>
+                </div>
+                <div class="event">
+                    <div class="event-time">02:00 PM</div>
+                    <div class="event-details">
+                        <h3>Project Review</h3>
+                        <p>Q3 Project milestones review</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Spotlight -->
+        <section class="widget team-spotlight">
+            <h2>Team Spotlight</h2>
+            <div class="spotlight-content">
+                <img src="https://github.com/imabutahersiddik.png" alt="Team Member" class="spotlight-image">
+                <div class="spotlight-info">
+                    <h3>Employee of the Month</h3>
+                    <p class="member-name">Abu Taher Siddik</p>
+                    <p class="member-role">Frontend Developer</p>
+                    <p class="achievement">Outstanding contribution to the Frontend Challenge project</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Links -->
+        <section class="widget quick-links">
+            <h2>Quick Links</h2>
+            <div class="links-grid">
+                <a href="#" class="quick-link">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Documents</span>
+                </a>
+                <a href="#" class="quick-link">
+                    <i class="fas fa-book"></i>
+                    <span>Knowledge Base</span>
+                </a>
+                <a href="#" class="quick-link">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Book Meeting Room</span>
+                </a>
+                <a href="#" class="quick-link">
+                    <i class="fas fa-hands-helping"></i>
+                    <span>IT Support</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
