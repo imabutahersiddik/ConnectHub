@@ -6,7 +6,7 @@
   <p>Built with pure CSS and vanilla JavaScript</p>
 </div>
 
-![Dashboard Preview](screenshots/dashboard.png)
+![Dashboard Preview](screenshots/dashboard.jpg)
 
 ## 📌 Overview
 
@@ -25,7 +25,7 @@ ConnectHub is a modern intranet dashboard that provides a clean, intuitive inter
 - Real-time updates
 - Clean, modern UI
 
-![Dashboard Widgets](screenshots/widgets.png)
+![Dashboard Widgets](screenshots/widgets.jpg)
 
 ### 2. Calendar & Events
 - Interactive calendar
@@ -33,7 +33,7 @@ ConnectHub is a modern intranet dashboard that provides a clean, intuitive inter
 - Meeting schedules
 - Participant management
 
-![Calendar View](screenshots/calendar.png)
+![Calendar View](screenshots/calendar.jpg)
 
 ### 3. Document Management
 - File categories
@@ -41,7 +41,7 @@ ConnectHub is a modern intranet dashboard that provides a clean, intuitive inter
 - Download/share functionality
 - File preview
 
-![Documents Section](screenshots/documents.png)
+![Documents Section](screenshots/documents.jpg)
 
 ### 4. Team Collaboration
 - Team directory
@@ -49,7 +49,7 @@ ConnectHub is a modern intranet dashboard that provides a clean, intuitive inter
 - Resource sharing
 - Activity feeds
 
-![Team Section](screenshots/team.png)
+![Team Section](screenshots/team.jpg)
 
 ## 🚀 Getting Started
 
@@ -71,10 +71,10 @@ connecthub/
 ├── assets/
 │   └── logo.svg
 ├── screenshots/
-│   ├── dashboard.png
-│   ├── calendar.png
-│   ├── documents.png
-│   └── team.png
+│   ├── dashboard.jpg
+│   ├── calendar.jpg
+│   ├── documents.jpg
+│   └── team.jpg
 ├── index.html
 ├── styles.css
 ├── script.js
@@ -124,13 +124,13 @@ npx serve
 The dashboard is fully responsive and works seamlessly across devices:
 
 ### Desktop View (1920px)
-![Desktop View](screenshots/desktop.png)
+![Desktop View](screenshots/desktop.jpg)
 
 ### Tablet View (768px)
-![Tablet View](screenshots/tablet.png)
+![Tablet View](screenshots/tablet.jpg)
 
 ### Mobile View (375px)
-![Mobile View](screenshots/mobile.png)
+![Mobile View](screenshots/mobile.jpg)
 
 ## 🛠 Technical Details
 
